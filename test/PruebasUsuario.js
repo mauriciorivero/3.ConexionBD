@@ -5,7 +5,7 @@
  * de la clase Usuario del sistema de gestión de parqueadero.
  */
 
-const { Usuario } = require('./model');
+const { Usuario } = require('../model');
 
 class PruebasUsuario {
   constructor() {

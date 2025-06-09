@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "node PruebasUsuario.js",
-    "test:usuario": "node PruebasUsuario.js",
-    "test:verbose": "node --trace-warnings PruebasUsuario.js",
-    "test:save": "node PruebasUsuario.js > resultados-pruebas.txt 2>&1",
+    "test": "node test/PruebasUsuario.js",
+    "test:usuario": "node test/PruebasUsuario.js",
+    "test:verbose": "node --trace-warnings test/PruebasUsuario.js",
+    "test:save": "node test/PruebasUsuario.js > resultados-pruebas.txt 2>&1",
     "start": "node app.js"
   },
   "keywords": [],

@@ -213,7 +213,7 @@ npm test
 
 **Direct execution:**
 ```bash
-node PruebasUsuario.js
+node test/PruebasUsuario.js
 ```
 
 #### NPM Scripts Available
@@ -239,22 +239,22 @@ npm start
 
 **Execute with warnings and debug info:**
 ```bash
-node --trace-warnings PruebasUsuario.js
+node --trace-warnings test/PruebasUsuario.js
 ```
 
 **Save results to file:**
 ```bash
-node PruebasUsuario.js > resultados-pruebas.txt 2>&1
+node test/PruebasUsuario.js > resultados-pruebas.txt 2>&1
 ```
 
 **Execute with timeout:**
 ```bash
-timeout 30s node PruebasUsuario.js
+timeout 30s node test/PruebasUsuario.js
 ```
 
 **Show only errors:**
 ```bash
-node PruebasUsuario.js 2>&1 | grep -E "(❌|Error|FALLIDA)"
+node test/PruebasUsuario.js 2>&1 | grep -E "(❌|Error|FALLIDA)"
 ```
 
 ### Test Coverage
@@ -361,10 +361,10 @@ node --version
 npm --version
 
 # Verify test file exists
-ls -la PruebasUsuario.js
+ls -la test/PruebasUsuario.js
 
 # View test file structure
-head -10 PruebasUsuario.js
+head -10 test/PruebasUsuario.js
 ```
 
 ## Additional Testing
