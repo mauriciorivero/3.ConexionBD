@@ -26,7 +26,7 @@ async function main() {
 
     // 3. Llamar al método findByDocument con un número de documento específico
     console.log('\n3. Buscando usuario por número de documento...');
-    const numeroDocumentoBuscar = '1234567890'; // Cambia este número por uno que exista en tu BD
+    const numeroDocumentoBuscar = '651684841'; // Cambia este número por uno que exista en tu BD
     
     const usuarioEncontrado = await usuario.findByDocument(numeroDocumentoBuscar);
     

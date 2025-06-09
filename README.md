@@ -198,6 +198,175 @@ model/
 └── README.md                # This documentation
 ```
 
-## Testing
+## Unit Testing
+
+The project includes comprehensive unit tests for all model classes. The test file `PruebasUsuario.js` contains exhaustive tests for the `Usuario` class.
+
+### Running Tests
+
+#### Quick Commands
+
+**Main test command:**
+```bash
+npm test
+```
+
+**Direct execution:**
+```bash
+node PruebasUsuario.js
+```
+
+#### NPM Scripts Available
+
+```bash
+# Run all unit tests
+npm test
+
+# Run Usuario class tests specifically
+npm run test:usuario
+
+# Run with detailed debug information
+npm run test:verbose
+
+# Save test results to file
+npm run test:save
+
+# Run the main application
+npm start
+```
+
+#### Advanced Testing Commands
+
+**Execute with warnings and debug info:**
+```bash
+node --trace-warnings PruebasUsuario.js
+```
+
+**Save results to file:**
+```bash
+node PruebasUsuario.js > resultados-pruebas.txt 2>&1
+```
+
+**Execute with timeout:**
+```bash
+timeout 30s node PruebasUsuario.js
+```
+
+**Show only errors:**
+```bash
+node PruebasUsuario.js 2>&1 | grep -E "(❌|Error|FALLIDA)"
+```
+
+### Test Coverage
+
+The unit tests cover the following areas:
+
+#### 🧪 Constructor Tests
+- Empty constructor validation
+- Constructor with all parameters
+- Parameter assignment verification
+
+#### 🔧 Property Tests
+- All getter methods
+- All setter methods
+- Property value validation
+
+#### 📊 Method Tests
+- `toJSON()` - Object serialization
+- `_mapRowToObject()` - Database row mapping
+- `findAll()` - Static method for retrieving all users
+- `findById()` - Find user by ID
+- `findByDocument()` - Find user by document number
+
+#### ✅ Validation Tests
+- Data type validation
+- Edge cases and boundary conditions
+- Error handling scenarios
+
+#### 🔍 Integration Tests
+- Database connection handling
+- SQL query execution (with mock data)
+- Error handling for connection failures
+
+### Test Framework Features
+
+- **Custom Assertions**: `assertEquals`, `assertNotNull`, `assertTrue`
+- **Error Handling**: Comprehensive try-catch with detailed reporting
+- **Statistics**: Success/failure counters and percentages
+- **Performance**: Execution time measurement
+- **Detailed Reports**: Complete test results with error descriptions
+
+### Expected Test Output
+
+```
+🚀 INICIANDO PRUEBAS UNITARIAS DE LA CLASE USUARIO
+============================================================
+
+🧪 Ejecutando: Constructor Vacío
+✅ EXITOSA: Constructor Vacío
+
+🧪 Ejecutando: Constructor Con Parámetros
+✅ EXITOSA: Constructor Con Parámetros
+
+🧪 Ejecutando: Getters y Setters
+✅ EXITOSA: Getters y Setters
+
+🧪 Ejecutando: Método toJSON
+✅ EXITOSA: Método toJSON
+
+🧪 Ejecutando: Método _mapRowToObject
+✅ EXITOSA: Método _mapRowToObject
+
+🧪 Ejecutando: Método findAll (BD)
+   ℹ️  Prueba de BD - Se esperaba error de conexión
+✅ EXITOSA: Método findAll (BD)
+
+🧪 Ejecutando: Método findById (BD)
+   ℹ️  Prueba de BD - Se esperaba error de conexión
+✅ EXITOSA: Método findById (BD)
+
+🧪 Ejecutando: Método findByDocument (BD)
+   ℹ️  Prueba de BD - Se esperaba error de conexión
+✅ EXITOSA: Método findByDocument (BD)
+
+🧪 Ejecutando: Validación de Datos
+✅ EXITOSA: Validación de Datos
+
+🧪 Ejecutando: Casos Extremos
+✅ EXITOSA: Casos Extremos
+
+============================================================
+📊 RESUMEN DE PRUEBAS UNITARIAS
+============================================================
+📈 Total de pruebas ejecutadas: 10
+✅ Pruebas exitosas: 10
+❌ Pruebas fallidas: 0
+⏱️  Tiempo total: 45ms
+📊 Porcentaje de éxito: 100%
+
+✨ PRUEBAS COMPLETADAS
+```
+
+### Prerequisites for Testing
+
+- **Node.js**: Ensure Node.js is installed (`node --version`)
+- **Dependencies**: Run `npm install` to install required packages
+- **Database**: Tests work with or without database connection
+
+### Diagnostic Commands
+
+```bash
+# Check Node.js version
+node --version
+npm --version
+
+# Verify test file exists
+ls -la PruebasUsuario.js
+
+# View test file structure
+head -10 PruebasUsuario.js
+```
+
+## Additional Testing
 
 See `example-orm-usage.js` in the root directory for comprehensive usage examples and testing scenarios. 
