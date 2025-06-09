@@ -1,61 +1,67 @@
 const mysql = require('mysql2');
+const { Usuario } = require('./model');
 
-// Configuración de la conexión
-const connection = mysql.createConnection({
-  host: 'localhost',
-  port: 8889,        // Cambia por el puerto de tu servidor MySQL
-  user: 'oscar',        // Cambia por tu usuario de MySQL
-  password: 'Oscar123456', // Cambia por tu contraseña
-  database: 'ParkingLot'  // Cambia por el nombre de tu base de datos
-});
+async function main() {
+  try {
+    console.log('=== INICIANDO APLICACIÓN DE GESTIÓN DE USUARIOS ===\n');
 
-// Conectar a la base de datos
-connection.connect((err) => {
-  if (err) {
-    console.error('Error conectando a la base de datos:', err.message);
-    return;
-  }
-  console.log('Conectado a MySQL como ID:', connection.threadId);
-  
-  // Ejecutar consulta de selección
-  ejecutarConsulta();
-});
+    // 1. Crear un objeto de la clase Usuario
+    console.log('1. Creando objeto Usuario...');
+    const usuario = new Usuario();
+    console.log('✓ Objeto Usuario creado exitosamente\n');
 
-function ejecutarConsulta() {
-  // Ejemplo de consulta SELECT
-  const query = 'select * from usuario'; // Cambia por tu consulta
-  
-  connection.query(query, (err, results, fields) => {
-    if (err) {
-      console.error('Error ejecutando la consulta:', err.message);
-      return;
+    // 2. Llamar al método findAll para traer todos los usuarios
+    console.log('2. Obteniendo todos los usuarios...');
+    const todosLosUsuarios = await Usuario.findAll();
+    console.log(`✓ Se encontraron ${todosLosUsuarios.length} usuarios en la base de datos`);
+    
+    if (todosLosUsuarios.length > 0) {
+      console.log('\n--- LISTA DE TODOS LOS USUARIOS ---');
+      todosLosUsuarios.forEach((user, index) => {
+        console.log(`${index + 1}. ${user.primer_nombre} ${user.primer_apellido} - Documento: ${user.numero_documento} - Email: ${user.direccion_correo}`);
+      });
+    } else {
+      console.log('No se encontraron usuarios en la base de datos');
     }
+
+    // 3. Llamar al método findByDocument con un número de documento específico
+    console.log('\n3. Buscando usuario por número de documento...');
+    const numeroDocumentoBuscar = '1234567890'; // Cambia este número por uno que exista en tu BD
     
-    console.log('\n=== RESULTADOS DE LA CONSULTA ===');
-    console.log('Número de registros encontrados:', results.length);
-    console.log('\nDatos:');
+    const usuarioEncontrado = await usuario.findByDocument(numeroDocumentoBuscar);
     
-    // Mostrar cada resultado
-    results.forEach((row, index) => {
-      console.log(`\nRegistro ${index + 1}:`);
-      console.log(row);
-    });
-    
-    // Cerrar la conexión
-    connection.end((err) => {
-      if (err) {
-        console.error('Error cerrando la conexión:', err.message);
-      } else {
-        console.log('\nConexión cerrada correctamente.');
+    if (usuarioEncontrado) {
+      console.log(`✓ Usuario encontrado con documento ${numeroDocumentoBuscar}:`);
+      console.log('--- DETALLES DEL USUARIO ---');
+      console.log(`ID: ${usuarioEncontrado.id_usuario}`);
+      console.log(`Tipo Documento: ${usuarioEncontrado.tipo_documento}`);
+      console.log(`Número Documento: ${usuarioEncontrado.numero_documento}`);
+      console.log(`Nombre Completo: ${usuarioEncontrado.primer_nombre} ${usuarioEncontrado.segundo_nombre || ''} ${usuarioEncontrado.primer_apellido} ${usuarioEncontrado.segundo_apellido || ''}`);
+      console.log(`Email: ${usuarioEncontrado.direccion_correo}`);
+      console.log(`Celular: ${usuarioEncontrado.numero_celular}`);
+      console.log(`Estado: ${usuarioEncontrado.estado}`);
+      console.log(`Perfil ID: ${usuarioEncontrado.perfil_usuario_id}`);
+    } else {
+      console.log(`✗ No se encontró usuario con documento ${numeroDocumentoBuscar}`);
+      
+      // Mostrar algunos números de documento disponibles para referencia
+      if (todosLosUsuarios.length > 0) {
+        console.log('\n📝 Números de documento disponibles en la BD:');
+        todosLosUsuarios.slice(0, 5).forEach(user => {
+          console.log(`   - ${user.numero_documento} (${user.primer_nombre} ${user.primer_apellido})`);
+        });
+        console.log('💡 Cambia la variable "numeroDocumentoBuscar" por uno de estos números');
       }
-    });
-  });
+    }
+
+    console.log('\n=== APLICACIÓN FINALIZADA EXITOSAMENTE ===');
+
+  } catch (error) {
+    console.error('❌ Error en la aplicación:', error.message);
+    console.error('Detalles del error:', error);
+  }
 }
 
-// Manejar errores de conexión
-connection.on('error', (err) => {
-  console.error('Error de conexión:', err.message);
-  if (err.code === 'PROTOCOL_CONNECTION_LOST') {
-    console.log('Conexión perdida, reconectando...');
-  }
-});
+// Ejecutar la función principal
+main();
+
